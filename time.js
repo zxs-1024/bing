@@ -1,6 +1,6 @@
 const collect = []
 const startYear = 2009
-const startMonth = 5
+const startMonth = 7
 const endYear = new Date().getFullYear()
 const endMonth = new Date().getMonth() + 1
 

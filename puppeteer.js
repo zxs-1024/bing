@@ -6,13 +6,9 @@ const writeFile = promisify(fs.writeFile)
 const mkdir = promisify(fs.mkdir)
 
 const collectPath = './collect'
+const timeArray = require('./time')
 
-
-
-const main = async time => {
-  const browser = await puppeteer.launch({ headless: false })
-
-  const page = await browser.newPage()
+const puppeteerFn = async (page, time) => {
   await page.goto(`http://bingwallpaper.anerg.com/cn/${time}`)
 
   const evaluate = await page.evaluate(() => {
@@ -47,14 +43,32 @@ const main = async time => {
       console.log(`📄  写入 ${time}.json 文件成功！`)
     }
   )
+}
+
+async function main() {
+  const browser = await puppeteer.launch({
+    headless: false,
+    timeout: 0,
+    ignoreHTTPSErrors: true
+  })
+
+  const page = await browser.newPage()
+
+  let result = Promise.resolve()
+
+  // timeArray.forEach(time => {
+  //   result = result.then(() => {
+  //     return puppeteerFn(time)
+  //   })
+  // })
+
+  for (let i = 0; i < timeArray.length; i++) {
+    if (!fs.existsSync(`${collectPath}/${timeArray[i]}`)) {
+      await puppeteerFn(page, timeArray[i])
+    }
+  }
 
   await browser.close()
 }
 
-let result = Promise.resolve()
-
-timeArray.forEach(time => {
-  result = result.then(() => {
-    return main(time)
-  })
-})
+main()
