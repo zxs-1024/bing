@@ -5,27 +5,43 @@ const { promisify } = require('util')
 const writeFile = promisify(fs.writeFile)
 const mkdir = promisify(fs.mkdir)
 
-const collectPath = './collect'
 const timeArray = require('./time')
+const { fillZero } = require('./utils')
+const collectPath = './collect'
+const baseUrl = 'http://bingwallpaper.anerg.com/cn/'
 
 const puppeteerFn = async (page, time) => {
-  await page.goto(`http://bingwallpaper.anerg.com/cn/${time}`)
+  await page.goto(`${baseUrl}${time}`)
 
   const evaluate = await page.evaluate(() => {
+    // 获取图片 DOM
     const images = document.querySelectorAll('#photos .panel a img')
     const collect = [...images]
 
+    // http://bingwallpaper.anerg.com/cn/201812
+    // => cn/201812 => 201812 => 12
     const pathname = window.location.pathname.split('/')[2]
     const month = pathname.slice(4, 6)
+    const now = new Date()
+    const nowMonth = now.getMonth + 1
+    const nowDay = now.getDate()
+    const nowTime = `${now.getFullYear()}${fillZero(nowMonth)}`
 
+    function fillZero(number) {
+      return number < 10 ? `0${number}` : number
+    }
+
+    // 获取当月天数
     const date = new Date(`${pathname}`)
     date.setMonth(month)
     date.setDate(0)
-    let day = date.getDate() + 1
+    const day = date.getDate() + 1
+
+    if (nowTime === pathname) day = nowDay
 
     return collect.map(({ src, alt }) => {
       return {
-        enddate: `${pathname}${day-- < 10 ? `0${day}` : day}`,
+        enddate: `${pathname}${fillZero(day)}`,
         url: src,
         copyright: alt
       }
@@ -38,6 +54,7 @@ const puppeteerFn = async (page, time) => {
     )
   }
 
+  // 写入 JSON 文件
   await writeFile(`${collectPath}/${time}.json`, JSON.stringify(evaluate)).then(
     () => {
       console.log(`📄  写入 ${time}.json 文件成功！`)
@@ -45,7 +62,7 @@ const puppeteerFn = async (page, time) => {
   )
 }
 
-async function main() {
+;(async () => {
   const browser = await puppeteer.launch({
     headless: false,
     timeout: 0,
@@ -54,21 +71,12 @@ async function main() {
 
   const page = await browser.newPage()
 
-  let result = Promise.resolve()
-
-  // timeArray.forEach(time => {
-  //   result = result.then(() => {
-  //     return puppeteerFn(time)
-  //   })
-  // })
-
   for (let i = 0; i < timeArray.length; i++) {
-    if (!fs.existsSync(`${collectPath}/${timeArray[i]}`)) {
+    if (!fs.existsSync(`${collectPath}/${timeArray[i]}.json`)) {
       await puppeteerFn(page, timeArray[i])
     }
   }
 
+  console.log('🎉  你的数据已爬取完毕 => 冲鸭！！！')
   await browser.close()
-}
-
-main()
+})()
