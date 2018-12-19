@@ -13,6 +13,7 @@ const every = 'https://cn.bing.com/HPImageArchive.aspx'
 
 const collect = './src/images'
 const json = './src/images.json'
+const idx = process.argv[2] || -1
 const params = {
   format: 'js', // 数据返回格式 json
   idx: -1, // -1 今天、0 昨天、1 前天
