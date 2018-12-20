@@ -7,7 +7,7 @@ const mkdir = promisify(fs.mkdir)
 
 const timeArray = require('./time')
 const { fillZero } = require('./utils')
-const collectPath = './collect'
+const collectPath = './src/collect'
 const baseUrl = 'http://bingwallpaper.anerg.com/cn/'
 
 const puppeteerFn = async (page, time) => {
@@ -23,7 +23,7 @@ const puppeteerFn = async (page, time) => {
     const pathname = window.location.pathname.split('/')[2]
     const month = pathname.slice(4, 6)
     const now = new Date()
-    const nowMonth = now.getMonth + 1
+    const nowMonth = now.getMonth() + 1
     const nowDay = now.getDate()
     const nowTime = `${now.getFullYear()}${fillZero(nowMonth)}`
 
@@ -35,13 +35,17 @@ const puppeteerFn = async (page, time) => {
     const date = new Date(`${pathname}`)
     date.setMonth(month)
     date.setDate(0)
-    const day = date.getDate() + 1
+    let day = date.getDate()
 
     if (nowTime === pathname) day = nowDay
 
     return collect.map(({ src, alt }) => {
+      const date = fillZero(day--)
       return {
-        enddate: `${pathname}${fillZero(day)}`,
+        enddate: `${pathname}${date}`,
+        date: new Date(
+          `${pathname.slice(0, 4)}-${pathname.slice(4, 6)}-${date}`
+        ).getTime(),
         url: src,
         copyright: alt
       }

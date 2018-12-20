@@ -27,7 +27,9 @@ let jsonData = []
 try {
   jsonData = JSON.parse(data.toString())
   if (!Array.isArray(jsonData)) jsonData = []
-} catch (error) {}
+} catch (error) {
+  console.error(`😂  转换 ${json} 文件 parse 错误!`)
+}
 
 // 下载文件
 function downLoad(source, target) {
