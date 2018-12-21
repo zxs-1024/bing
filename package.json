@@ -4,8 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "pu": "node src/puppeteer.js",
-    "update": "node index.js"
+    "pu": "node collect/index.js",
+    "update": "node update/index.js"
   },
   "dependencies": {
     "axios": "^0.18.0",
