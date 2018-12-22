@@ -57,11 +57,18 @@ const resolution = '1920x1080'
 const imageUrl = `https://cn.bing.com//az/hprichbg/rb/${name}_${resolution}.jpg`
 ```
 
-### 图片详情地址
+### 图片详情页面地址
 
 ```js
 const date = 20181221
 const details = `https://cn.bing.com/cnhp/life?currentDate=${date}`
+```
+
+### 图片详情接口
+
+```js
+const date = 20181221
+const details = `https://cn.bing.com/cnhp/coverstory?d=${date}`
 ```
 
 ### 历史图片爬取地址

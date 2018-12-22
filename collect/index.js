@@ -4,7 +4,7 @@ const { promisify } = require('util')
 
 const writeFile = promisify(fs.writeFile)
 const mkdir = promisify(fs.mkdir)
-const { fillZero, getMonthDays } = require('../utils')
+const { fillZero, getMonthDays, handleWriteFile } = require('../utils')
 const times = require('../utils/times')
 
 const baseUrl = 'http://bingwallpaper.anerg.com/cn/'
@@ -29,28 +29,13 @@ const collectPath = './collect/data'
       // 处理数据
       const collect = handleTransCollect(evaluate, times[i])
       // 写入 JSON 文件
-      await handleWriteFile(collect, times[i])
+      await handleWriteFile(collectPath, collect, times[i])
     }
   }
 
   console.log('🎉  你的数据已爬取完毕 => 冲鸭！！！')
   await browser.close()
 })()
-
-// 写入 JSON 文件
-async function handleWriteFile(evaluate, time) {
-  if (!fs.existsSync(collectPath)) {
-    await mkdir(collectPath).then(() =>
-      console.log(`📂  创建 ${collectPath} 文件夹成功！`)
-    )
-  }
-
-  // 格式化
-  const data = JSON.stringify(evaluate, null, 2)
-  await writeFile(`${collectPath}/${time}.json`, data).then(() => {
-    console.log(`📄  写入 ${time}.json 文件成功！`)
-  })
-}
 
 // 收集图片信息
 async function puppeteerFn(page, time) {

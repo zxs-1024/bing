@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "pu": "node collect/index.js",
-    "update": "node update/index.js"
+    "update": "node update/index.js",
+    "detail": "node details/index.js"
   },
   "dependencies": {
     "async": "^2.6.1",

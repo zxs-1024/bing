@@ -59,7 +59,7 @@ function downLoad(source, target) {
 
     if (!jsonData.some(item => image.startdate === item.startdate)) {
       jsonData.unshift(image)
-      writeFile(json, JSON.stringify(jsonData)).then(() => {
+      writeFile(json, JSON.stringify(jsonData, null, 2)).then(() => {
         console.log(`📄  写入 ${json} 文件成功！`)
       })
     }
