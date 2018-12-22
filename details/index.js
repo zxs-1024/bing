@@ -77,9 +77,9 @@ async function puppeteerFn(page, date) {
   await page.goto(`${detailUrl}${date}`)
 
   // 等待页面渲染
-  await page.waitForSelector('#hplaT .hplaTtl')
-  await page.waitForSelector('.hplaCata .hplats')
-  await page.waitForSelector('#hplaSnippet')
+  // await page.waitForSelector('#hplaT .hplaTtl')
+  // await page.waitForSelector('.hplaCata .hplats')
+  // await page.waitForSelector('#hplaSnippet')
 
   return await page.evaluate(time => {
     function handleGetInnerText(name) {
@@ -104,7 +104,8 @@ async function puppeteerFn(page, date) {
     const describe3 = describes[1] && describes[1].innerText
 
     const images = document.querySelectorAll('.hplaCard .rms_img')
-    const miniImage1 = document.querySelectorAll('#hpla .rms_img')[1].src
+    const miniImage1 = (document.querySelectorAll('#hpla .rms_img')[1] || {})
+      .src
     const miniImage2 = images[1] && images[1].src
     const miniImage3 = images[3] && images[3].src
 
