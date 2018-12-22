@@ -8,6 +8,7 @@
     "update": "node update/index.js"
   },
   "dependencies": {
+    "async": "^2.6.1",
     "axios": "^0.18.0",
     "dayjs": "^1.7.7",
     "promisify": "^0.0.3",
