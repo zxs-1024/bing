@@ -3,6 +3,7 @@ const { promisify } = require('util')
 
 const writeFile = promisify(fs.writeFile)
 const mkdir = promisify(fs.mkdir)
+const unlink = promisify(fs.unlink)
 
 const fillZero = number => {
   return number < 10 ? `0${number}` : number
@@ -33,9 +34,18 @@ const handleWriteFile = async (path, data, time) => {
   })
 }
 
+// 删除当月数据
+const handleDeleteFile = async path => {
+  const file = `${path}/${201812}.json`
+  if (fs.existsSync(file)) {
+    await unlink(file).then(() => console.log(`📂  删除 ${file} 文件成功！`))
+  }
+}
+
 module.exports = {
   fillZero,
   sleep,
   getMonthDays,
-  handleWriteFile
+  handleWriteFile,
+  handleDeleteFile
 }

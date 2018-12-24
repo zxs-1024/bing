@@ -1,8 +1,7 @@
 const { fillZero } = require('./index')
 
 const times = []
-// 列表从 20090701 开始
-// 详情从 20150603 开始
+// 从 20090701 开始
 const startYear = 2009
 const startMonth = 7
 const endYear = new Date().getFullYear()

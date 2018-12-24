@@ -3,9 +3,11 @@ const puppeteer = require('puppeteer')
 const { promisify } = require('util')
 const async = require('async')
 const axios = require('axios')
+const path = require('path')
 
-const writeFile = promisify(fs.writeFile)
 const mkdir = promisify(fs.mkdir)
+const writeFile = promisify(fs.writeFile)
+const readFile = promisify(fs.readFile)
 
 const { fillZero, getMonthDays, handleWriteFile } = require('../utils')
 const times = require('../utils/times').reverse()
@@ -16,7 +18,7 @@ const collectPath = './details/data'
 
 ;(async () => {
   const browser = await puppeteer.launch({
-    headless: false,
+    headless: true,
     timeout: 0,
     ignoreHTTPSErrors: true
   })
@@ -26,7 +28,22 @@ const collectPath = './details/data'
   // 遍历时间数组，爬取数据
   for (let i = 0; i < times.length; i++) {
     if (!fs.existsSync(`${collectPath}/${times[i]}.json`)) {
-      const monthCollect = await handleEachDay(page, times[i])
+      const copyPath = path.resolve(
+        __dirname,
+        `../collect/data/${times[i]}.json`
+      )
+      let copyData = []
+      if (fs.existsSync(copyPath)) {
+        try {
+          copyData = await readFile(copyPath)
+          copyData = JSON.parse(copyData.toString()).reverse()
+        } catch (error) {
+          console.log(`😂  解析 ${copyPath} 文件数据错误！`, error)
+        }
+      }
+
+      const monthCollect = await handleEachDay(page, times[i], copyData)
+
       await handleWriteFile(collectPath, monthCollect, times[i])
     }
   }
@@ -37,7 +54,7 @@ const collectPath = './details/data'
 })()
 
 // 处理每一天
-async function handleEachDay(page, month) {
+async function handleEachDay(page, month, copyData) {
   const collect = []
   // 获取当月天数
   let day = getMonthDays(month)
@@ -55,12 +72,18 @@ async function handleEachDay(page, month) {
       primaryImageUrl
     } = await axios.get(`${bingUrl}${month}${fillDay}`).then(({ data }) => data)
 
+    console.log(`💦  打开 ${month}${fillDay} 页面，爬取数据中。。。`)
+
     const data = await puppeteerFn(page, `${month}${fillDay}`)
+    const { copyright, name, url, dateString } = copyData[day] || {}
 
     collect.push({
       ...data,
       primaryImageUrl,
+      url,
+      name,
       provider,
+      copyright,
       Continent,
       Country,
       City,

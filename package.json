@@ -6,7 +6,8 @@
   "scripts": {
     "pu": "node collect/index.js",
     "update": "node update/index.js",
-    "detail": "node details/index.js"
+    "detail": "node details/index.js",
+    "all": "node collect/index.js && node update/index.js && node details/index.js"
   },
   "dependencies": {
     "async": "^2.6.1",

@@ -4,7 +4,12 @@ const { promisify } = require('util')
 
 const writeFile = promisify(fs.writeFile)
 const mkdir = promisify(fs.mkdir)
-const { fillZero, getMonthDays, handleWriteFile } = require('../utils')
+const {
+  fillZero,
+  getMonthDays,
+  handleWriteFile,
+  handleDeleteFile
+} = require('../utils')
 const times = require('../utils/times')
 
 const baseUrl = 'http://bingwallpaper.anerg.com/cn/'
@@ -20,6 +25,8 @@ const collectPath = './collect/data'
 
   // 打开页面
   const page = await browser.newPage()
+
+  await handleDeleteFile(collectPath)
 
   // 遍历时间数组，爬取数据
   for (let i = 0; i < times.length; i++) {
