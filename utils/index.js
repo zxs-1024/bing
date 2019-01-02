@@ -36,7 +36,11 @@ const handleWriteFile = async (path, data, time) => {
 
 // 删除当月数据
 const handleDeleteFile = async path => {
-  const file = `${path}/${201812}.json`
+  const date = new Date()
+  const year = date.getFullYear()
+  const month = fillZero(date.getMonth() + 1)
+  const file = `${path}/${year}${month}.json`
+
   if (fs.existsSync(file)) {
     await unlink(file).then(() => console.log(`📂  删除 ${file} 文件成功！`))
   }

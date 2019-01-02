@@ -16,7 +16,10 @@ const idx = process.argv[2] || -1
 const params = {
   format: 'js', // 数据返回格式 json
   idx, // -1 今天、0 昨天、1 前天
-  n: 8 // 返回图片，最大 8 组
+  n: 8, // 返回图片，最大 8 组
+  nc: 1546351019999,
+  pid: 'hp',
+  video: 1
 }
 
 // 获取 JSON 数据
