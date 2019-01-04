@@ -1,5 +1,6 @@
 const fs = require('fs')
 const puppeteer = require('puppeteer')
+const axios = require('axios')
 const { promisify } = require('util')
 
 const writeFile = promisify(fs.writeFile)
@@ -13,6 +14,8 @@ const {
 const times = require('../utils/times')
 
 const baseUrl = 'http://bingwallpaper.anerg.com/cn/'
+const bingUrl = 'https://cn.bing.com/cnhp/coverstory?d='
+
 const collectPath = './collect/data'
 
 ;(async () => {
@@ -34,7 +37,7 @@ const collectPath = './collect/data'
       // 收集图片信息
       const evaluate = await puppeteerFn(page, times[i])
       // 处理数据
-      const collect = handleTransCollect(evaluate, times[i])
+      const collect = await handleTransCollect(evaluate, times[i])
       // 写入 JSON 文件
       await handleWriteFile(collectPath, collect, times[i])
     }
@@ -66,18 +69,19 @@ async function puppeteerFn(page, time) {
 }
 
 // 处理数据
-function handleTransCollect(collect, month) {
+async function handleTransCollect(collect, month) {
   const now = new Date()
   const nowMonth = now.getMonth() + 1
   const nowDay = now.getDate()
   const nowTime = `${now.getFullYear()}${fillZero(nowMonth)}`
-
+  const result = []
   // 获取当月天数
   let day = getMonthDays(month)
 
   if (nowTime === month) day = nowDay
 
-  return collect.map(({ url, copyright }) => {
+  for (let i = 0; i < collect.length; i++) {
+    const { url, copyright } = collect[i]
     const fillDay = fillZero(day--)
     const date = new Date(
       `${month.slice(0, 4)}-${month.slice(4, 6)}-${fillDay}`
@@ -87,12 +91,22 @@ function handleTransCollect(collect, month) {
       ''
     )
     const dateString = `${month}${fillDay}`
-    return {
+
+    const { Continent, Country, City } = await axios
+      .get(`${bingUrl}${dateString}`)
+      .then(({ data }) => data)
+
+    const data = {
       dateString,
       date,
       url,
       name,
-      copyright
+      copyright,
+      Continent,
+      Country,
+      City
     }
-  })
+    result.push(data)
+  }
+  return result
 }
