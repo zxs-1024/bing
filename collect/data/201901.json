@@ -1,5 +1,45 @@
 [
   {
+    "dateString": "20190108",
+    "date": 1546905600000,
+    "url": "http://cdn.nanxiongnandi.com/bing/RainierDawn_ZH-CN9182470816_1366x768.jpg",
+    "name": "RainierDawn_ZH-CN9182470816",
+    "copyright": "瑞尼尔山国家公园，美国华盛顿州 (© Stephen Matera/Tandem Stills + Motion)(Bing China)",
+    "Continent": "北美洲",
+    "Country": "美国",
+    "City": "瑞尼尔山国家公园"
+  },
+  {
+    "dateString": "20190107",
+    "date": 1546819200000,
+    "url": "http://cdn.nanxiongnandi.com/bing/SnowyOwlVideo_ZH-CN9249781901_1366x768.jpg",
+    "name": "SnowyOwlVideo_ZH-CN9249781901",
+    "copyright": "一只在雪中驻立的雪鸮 (© Jérémie LeBlond-Fontaine/Getty Images)(Bing China)",
+    "Continent": "亚洲",
+    "Country": "",
+    "City": ""
+  },
+  {
+    "dateString": "20190106",
+    "date": 1546732800000,
+    "url": "http://cdn.nanxiongnandi.com/bing/TwilightHarbin_ZH-CN9418965212_1366x768.jpg",
+    "name": "TwilightHarbin_ZH-CN9418965212",
+    "copyright": "哈尔滨冰雪节，中国 (© Gavin Hellier/Getty Images)(Bing China)",
+    "Continent": "亚洲",
+    "Country": "中国",
+    "City": "哈尔滨"
+  },
+  {
+    "dateString": "20190105",
+    "date": 1546646400000,
+    "url": "http://cdn.nanxiongnandi.com/bing/ParisOpera_ZH-CN9524486957_1366x768.jpg",
+    "name": "ParisOpera_ZH-CN9524486957",
+    "copyright": "巴黎歌剧院穹顶上的夏加尔画作 (© Stephane Gautier/agefotostock)(Bing China)",
+    "Continent": "欧洲",
+    "Country": "法国",
+    "City": "巴黎"
+  },
+  {
     "dateString": "20190104",
     "date": 1546560000000,
     "url": "http://cdn.nanxiongnandi.com/bing/LandshutReliefMap_ZH-CN9611715870_1366x768.jpg",

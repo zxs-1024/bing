@@ -1,5 +1,93 @@
 [
   {
+    "startdate": "20190105",
+    "fullstartdate": "201901051600",
+    "enddate": "20190106",
+    "url": "/az/hprichbg/rb/TwilightHarbin_ZH-CN9418965212_1920x1080.jpg",
+    "urlbase": "/az/hprichbg/rb/TwilightHarbin_ZH-CN9418965212",
+    "copyright": "哈尔滨冰雪节，中国 (© Gavin Hellier/Getty Images)",
+    "copyrightlink": "/search?q=%e5%93%88%e5%b0%94%e6%bb%a8%e5%86%b0%e9%9b%aa%e8%8a%82&form=hpcapt&mkt=zh-cn",
+    "title": "",
+    "quiz": "/search?q=Bing+homepage+quiz&filters=WQOskey:%22HPQuiz_20190105_TwilightHarbin%22&FORM=HPQUIZ",
+    "wp": false,
+    "hsh": "45406ad27bfa2336698b2916445070cb",
+    "drk": 1,
+    "top": 1,
+    "bot": 1,
+    "hs": []
+  },
+  {
+    "startdate": "20190106",
+    "fullstartdate": "201901061600",
+    "enddate": "20190107",
+    "url": "/az/hprichbg/rb/SnowyOwlVideo_ZH-CN9249781901_1920x1080.jpg",
+    "urlbase": "/az/hprichbg/rb/SnowyOwlVideo_ZH-CN9249781901",
+    "copyright": "一只在雪中驻立的雪鸮 (© Jérémie LeBlond-Fontaine/Getty Images)",
+    "copyrightlink": "/search?q=%e9%9b%aa%e9%b8%ae&form=hpcapt&mkt=zh-cn",
+    "title": "",
+    "quiz": "/search?q=Bing+homepage+quiz&filters=WQOskey:%22HPQuiz_20190106_SnowyOwlVideo%22&FORM=HPQUIZ",
+    "wp": false,
+    "hsh": "5766ff0fef97956fec32a8d26348ffbd",
+    "drk": 1,
+    "top": 1,
+    "bot": 1,
+    "hs": [],
+    "vid": {
+      "sources": [
+        [
+          "mp4",
+          "video/mp4; codecs=\"avc1.42E01E, mp4a.40.2\"",
+          "//az29176.vo.msecnd.net/videocontent/SnowyOwl_GettyRF-456992254_768_ZH-CN.mp4"
+        ],
+        [
+          "mp4hd",
+          "video/mp4; codecs=\"avc1.42E01E, mp4a.40.2\"",
+          "//az29176.vo.msecnd.net/videocontent/SnowyOwl_GettyRF-456992254_1080_HD_ZH-CN.mp4"
+        ]
+      ],
+      "loop": true,
+      "image": "//az29176.vo.msecnd.net/videocontent/SnowyOwl_GettyRF-456992254_1080_FF_HD_ZH-CN489063993.jpg",
+      "caption": "一只在雪中驻立的雪鸮 (© Getty Images)",
+      "captionlink": "/search?q=%e9%9b%aa%e9%b8%ae&form=hpcapt",
+      "dark": true,
+      "audiopresent": false
+    }
+  },
+  {
+    "startdate": "20190107",
+    "fullstartdate": "201901071600",
+    "enddate": "20190108",
+    "url": "/az/hprichbg/rb/RainierDawn_ZH-CN9182470816_1920x1080.jpg",
+    "urlbase": "/az/hprichbg/rb/RainierDawn_ZH-CN9182470816",
+    "copyright": "瑞尼尔山国家公园，美国华盛顿州 (© Stephen Matera/Tandem Stills + Motion)",
+    "copyrightlink": "/search?q=%e5%9b%bd%e5%ae%b6%e5%85%ac%e5%9b%ad&form=hpcapt&mkt=zh-cn",
+    "title": "",
+    "quiz": "/search?q=Bing+homepage+quiz&filters=WQOskey:%22HPQuiz_20190107_RainierDawn%22&FORM=HPQUIZ",
+    "wp": false,
+    "hsh": "c295f026b64b45e57248218481629f4e",
+    "drk": 1,
+    "top": 1,
+    "bot": 1,
+    "hs": []
+  },
+  {
+    "startdate": "20190108",
+    "fullstartdate": "201901081600",
+    "enddate": "20190109",
+    "url": "/az/hprichbg/rb/VietnamStairs_ZH-CN9127735514_1920x1080.jpg",
+    "urlbase": "/az/hprichbg/rb/VietnamStairs_ZH-CN9127735514",
+    "copyright": "木阿洞穴，越南宁平 (© Cavan Images/Offset)",
+    "copyrightlink": "/search?q=%e6%9c%a8%e9%98%bf%e6%b4%9e%e7%a9%b4&form=hpcapt&mkt=zh-cn",
+    "title": "",
+    "quiz": "/search?q=Bing+homepage+quiz&filters=WQOskey:%22HPQuiz_20190108_VietnamStairs%22&FORM=HPQUIZ",
+    "wp": false,
+    "hsh": "65ea7c12816f5eb97d2af9b2070feaae",
+    "drk": 1,
+    "top": 1,
+    "bot": 1,
+    "hs": []
+  },
+  {
     "startdate": "20190103",
     "fullstartdate": "201901031600",
     "enddate": "20190104",
