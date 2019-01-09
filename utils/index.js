@@ -1,4 +1,5 @@
 const fs = require('fs')
+const request = require('request')
 const { promisify } = require('util')
 
 const writeFile = promisify(fs.writeFile)
@@ -46,10 +47,23 @@ const handleDeleteFile = async path => {
   }
 }
 
+// 下载文件
+const downLoad = (source, target, date = '') => {
+  return request(source)
+    .pipe(fs.createWriteStream(target))
+    .on('close', () => {
+      console.log(`🌁  ${date} 下载 ${target} 文件成功！`)
+    })
+    .on('error', err => {
+      console.log(err)
+    })
+}
+
 module.exports = {
   fillZero,
   sleep,
   getMonthDays,
   handleWriteFile,
-  handleDeleteFile
+  handleDeleteFile,
+  downLoad
 }

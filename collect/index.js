@@ -9,7 +9,8 @@ const {
   fillZero,
   getMonthDays,
   handleWriteFile,
-  handleDeleteFile
+  handleDeleteFile,
+  downLoad
 } = require('../utils')
 const times = require('../utils/times')
 
@@ -17,6 +18,7 @@ const baseUrl = 'http://bingwallpaper.anerg.com/cn/'
 const bingUrl = 'https://cn.bing.com/cnhp/coverstory?d='
 
 const collectPath = './collect/data'
+const imagePath = './collect/images'
 
 ;(async () => {
   // 启动浏览器
@@ -30,6 +32,12 @@ const collectPath = './collect/data'
   const page = await browser.newPage()
 
   await handleDeleteFile(collectPath)
+
+  if (!fs.existsSync(imagePath)) {
+    await mkdir(imagePath).then(() =>
+      console.log(`📂  创建 ${imagePath} 文件夹成功！`)
+    )
+  }
 
   // 遍历时间数组，爬取数据
   for (let i = 0; i < times.length; i++) {
@@ -87,19 +95,26 @@ async function handleTransCollect(collect, month) {
       `${month.slice(0, 4)}-${month.slice(4, 6)}-${fillDay}`
     ).getTime()
     const name = url.replace(
-      /(http:\/\/cdn.nanxiongnandi.com\/bing\/|_1366x768.jpg)/g,
+      /(http:\/\/cdn.nanxiongnandi.com\/bing\/|_1366x768)/g,
       ''
     )
     const dateString = `${month}${fillDay}`
-
     const { Continent, Country, City } = await axios
       .get(`${bingUrl}${dateString}`)
       .then(({ data }) => data)
+
+    const target = `${imagePath}/${name}`
+    const allName = name.replace(/\.jpg/, '_1366x768.jpg')
+    const imageUrl = `https://zhanghao-zhoushan.cn/image/${allName}`
+
+    // 下载图片
+    // if (!fs.existsSync(target)) await downLoad(url, target, dateString)
 
     const data = {
       dateString,
       date,
       url,
+      imageUrl,
       name,
       copyright,
       Continent,
