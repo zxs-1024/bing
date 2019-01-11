@@ -9,12 +9,18 @@ const mkdir = promisify(fs.mkdir)
 const writeFile = promisify(fs.writeFile)
 const readFile = promisify(fs.readFile)
 
-const { fillZero, getMonthDays, handleWriteFile } = require('../utils')
+const {
+  fillZero,
+  getMonthDays,
+  handleWriteFile,
+  downLoad
+} = require('../utils')
 const times = require('../utils/times').reverse()
 
 const detailUrl = 'https://cn.bing.com/cnhp/life?currentDate='
 const bingUrl = 'https://cn.bing.com/cnhp/coverstory?d='
 const collectPath = './details/data'
+const imagePath = './details/images'
 
 ;(async () => {
   const browser = await puppeteer.launch({
@@ -24,6 +30,12 @@ const collectPath = './details/data'
   })
 
   const page = await browser.newPage()
+
+  if (!fs.existsSync(imagePath)) {
+    await mkdir(imagePath).then(() =>
+      console.log(`📂  创建 ${imagePath} 文件夹成功！`)
+    )
+  }
 
   // 遍历时间数组，爬取数据
   for (let i = 0; i < times.length; i++) {
@@ -36,7 +48,7 @@ const collectPath = './details/data'
       if (fs.existsSync(copyPath)) {
         try {
           copyData = await readFile(copyPath)
-          copyData = JSON.parse(copyData.toString()).reverse()
+          copyData = JSON.parse(copyData.toString())
         } catch (error) {
           console.log(`😂  解析 ${copyPath} 文件数据错误！`, error)
         }
@@ -56,11 +68,9 @@ const collectPath = './details/data'
 // 处理每一天
 async function handleEachDay(page, month, copyData) {
   const collect = []
-  // 获取当月天数
-  let day = getMonthDays(month)
-
-  while (day) {
-    const fillDay = fillZero(day--)
+  let day = 0
+  while (day++ < copyData.length) {
+    const fillDay = fillZero(day)
 
     const {
       provider,
@@ -75,11 +85,39 @@ async function handleEachDay(page, month, copyData) {
     console.log(`💦  打开 ${month}${fillDay} 页面，爬取数据中。。。`)
 
     const data = await puppeteerFn(page, `${month}${fillDay}`)
-    const { copyright, name, url, dateString } = copyData[day] || {}
+    const { copyright, name, url, imageUrl = '', dateString } =
+      copyData[day] || {}
+
+    const downLoadUrl = imageUrl.replace(/1920x1080|_1366x768/g, '')
+
+    const { story } = data
+
+    for (let i = 0; i < story.length; i++) {
+      const { miniImage = '' } = story[i]
+      const match =
+        miniImage.match(
+          /http:\/\/(.*)cn\.bing\.net\/th\?id=(.*)&pid=MSNJVFeeds/
+        ) || []
+      const type = match[1]
+      const name = match[2]
+
+      const target = `${imagePath}/${type}${name}.png`
+
+      if (type && name) {
+        story[
+          i
+        ].miniUrl = `https://zhanghao-zhoushan.cn/image/story/${type}${name}.png`
+        // 下载图片
+        if (!fs.existsSync(target))
+          await downLoad(miniImage, target, `${month}${fillDay}`)
+      }
+    }
 
     collect.push({
       ...data,
       primaryImageUrl,
+      imageUrl,
+      downLoadUrl,
       url,
       name,
       provider,
@@ -138,24 +176,42 @@ async function puppeteerFn(page, date) {
       `${time.slice(0, 4)}-${time.slice(4, 6)}-${time.slice(6, 8)}`
     ).getTime()
 
+    const story = []
+
+    if (titleDescribe1 || describe1 || miniImage1) {
+      story.push({
+        title: titleDescribe1,
+        au: titleDescribeAu1,
+        describe: describe1,
+        miniImage: miniImage1
+      })
+    }
+
+    if (titleDescribe2 || describe2 || miniImage2) {
+      story.push({
+        title: titleDescribe2,
+        au: titleDescribeAu2,
+        describe: describe2,
+        miniImage: miniImage2
+      })
+    }
+
+    if (titleDescribe3 || describe3 || miniImage3) {
+      story.push({
+        title: titleDescribe3,
+        au: titleDescribeAu3,
+        describe: describe3,
+        miniImage: miniImage3
+      })
+    }
+
     // 合并成对象
     return {
       dateString: time,
       date,
       attribute,
       title,
-      titleDescribe1,
-      titleDescribeAu1,
-      titleDescribe2,
-      titleDescribeAu2,
-      titleDescribe3,
-      titleDescribeAu3,
-      describe1,
-      describe2,
-      describe3,
-      miniImage1,
-      miniImage2,
-      miniImage3
+      story
     }
   }, date)
 }

@@ -95,43 +95,67 @@ const url = 'http://bingwallpaper.anerg.com/cn/'
 
 ```js
 const image = {
-  dateString: '20181231',
-  date: 1546214400000,
+  dateString: '20190111',
+  date: 1547164800000,
   url:
-    'http://cdn.nanxiongnandi.com/bing/EyeFireworks_ZH-CN1712859531_1366x768.jpg',
-  name: 'EyeFireworks_ZH-CN1712859531',
-  copyright: '跨年烟火表演，伦敦 (© Anadolu Agency/Getty Images)(Bing China)'
+    'http://cdn.nanxiongnandi.com/bing/NapoleonsHat_ZH-CN2968205603_1366x768.jpg',
+  imageUrl:
+    'https://zhanghao-zhoushan.cn/image/large/NapoleonsHat_ZH-CN2968205603_1366x768.jpg',
+  name: 'NapoleonsHat_ZH-CN2968205603.jpg',
+  copyright:
+    '泰夫劳特镇，摩洛哥 (© Doug Pearson Photography/plainpicture)(Bing China)',
+  Continent: '非洲',
+  Country: '摩洛哥',
+  City: '泰夫劳特'
 }
 ```
 
 ### 详情数据
 
 ```js
-const image = {
-  dateString: '20181231',
-  date: 1546214400000,
-  attribute: '英国，伦敦',
-  title: '“火树银花不夜天”',
-  titleDescribe: '打开新年的各种方式',
-  titleDescribe1: '放烟花绝不是唯一',
-  titleDescribe2: '最有北方味儿的跨年城市',
-  titleDescribe3: '最中国风的跨年',
-  describe1:
-    '直到1999年，伦敦才开始举办大规模的跨年焰火表演，但从那时起，这个狂欢便成为新年前夜的保留节目。今天的壁纸展示的是2017年烟花爆满、五彩缤纷的伦敦眼（泰晤士河岸上的大摩天轮）。尽管直到2021年塔楼维护完毕，大本钟的钟声才会再次响起，但无论你是在大城市的街道上，还是在家里，到处都洋溢着欢乐的氛围。',
-  describe2:
-    '元旦的北京虽然落叶萧条，但是却饱含着传统和现代的交融。漫步在故宫、太庙、天坛、南锣鼓巷……甚至连不起眼的小胡同里都保留着浓浓的京味儿。而当我们走到三里屯、世贸天阶、蓝色港湾……却又是现代范儿十足，这里是年轻人的海洋，大家聚集在一起倒数，让路过的行人都不由自主地凑个热闹。',
-  describe3:
-    '最具中国风年味儿的为什么是南京？因为这里文化底蕴深厚，曾是六朝古都，又是十朝都会，受外来文化的影响很小。南京素有撞钟的习俗，玄奘寺每年在元旦前夜都要举办撞钟活动。在这里日游夫子庙，夜游秦淮河，沉寂在波光粼粼的河水中，两岸灯火辉煌，你可以在悠扬的钟声中体会南京的风韵，感受跨年的温暖与浪漫。',
-  miniImage1: 'http://s4.cn.bing.net/th?id=OJ.5sntxANxLQPjvw&pid=MSNJVFeeds',
-  miniImage2: 'http://s2.cn.bing.net/th?id=OJ.AAkeHYHoT5HseQ&pid=MSNJVFeeds',
-  miniImage3: 'http://s2.cn.bing.net/th?id=OJ.hsexk2YQM0OlWg&pid=MSNJVFeeds',
+const detail = {
+  dateString: '20190111',
+  date: 1547164800000,
+  attribute: '摩洛哥，泰夫劳特',
+  title: '隐秘之城',
+  story: [
+    {
+      title: '多彩摩洛哥',
+      au: '看你千遍也不倦',
+      describe:
+        '这个几乎隐藏在山谷中的小镇叫泰夫劳特镇，这里与摩洛哥的大城市相距较远，镇上较小的聚居点Aguerd Oudad被阿特拉斯山脉的红色山丘所环绕。这里虽然偏僻，但依然有很多登山者造访。若是游客过来，那可真得在路上费一番功夫。不过正如许多旅游作家所说，一切努力都是值得的。与马拉喀什等摩洛哥繁忙的城市相比，当地的柏柏尔人过着安静、慢节奏的生活。',
+      miniImage: 'http://s1.cn.bing.net/th?id=OJ.8JB0mEqDJpz0LQ&pid=MSNJVFeeds',
+      miniUrl:
+        'https://zhanghao-zhoushan.cn/image/story/s1.OJ.8JB0mEqDJpz0LQ.png'
+    },
+    {
+      title: '阿汤哥飙戏的地方',
+      au: '乌达雅城堡',
+      describe:
+        '一部《碟中谍5》捧红了摩洛哥拉巴特老城以东的乌达雅城堡，阿汤哥从城堡台阶飞车入海的镜头便是在这里取景。乌达雅城堡曾是海角上的军事要塞，黄色的砖石诉说着历史的沧桑，城堡内的花园却又是优雅精致、花木茂盛。站在城堡的高空平台上，俯视着海角全貌，饮上一杯咖啡，惬意自在。',
+      miniImage: 'http://s.cn.bing.net/th?id=OJ.QrKezuvuyP0VOw&pid=MSNJVFeeds',
+      miniUrl:
+        'https://zhanghao-zhoushan.cn/image/story/s.OJ.QrKezuvuyP0VOw.png'
+    },
+    {
+      title: '马拉喀什的世外桃源',
+      au: '马若雷勒花园',
+      describe:
+        '马若雷勒花园是摩洛哥马拉喀什艺术家集聚的艺术圣地，是艺术家雅克·马若雷勒所完成的最复杂、最宏大的作品。碧蓝色的墙壁和生机勃勃的绿色仙人掌交相辉映，院内花繁叶茂，小桥流水，小到一草一木，大到亭台楼阁都不由得让人赞叹设计者和建造者的匠心。',
+      miniImage: 'http://s1.cn.bing.net/th?id=OJ.xHwxQAwWtJ9cGA&pid=MSNJVFeeds',
+      miniUrl:
+        'https://zhanghao-zhoushan.cn/image/story/s1.OJ.xHwxQAwWtJ9cGA.png'
+    }
+  ],
   primaryImageUrl:
-    'http://hpimges.blob.core.chinacloudapi.cn/coverstory/watermark_eyefireworks_zh-cn1712859531_1920x1080.jpg',
-  provider: '© Anadolu Agency/Getty Images',
-  Continent: '欧洲',
-  Country: '英国',
-  City: '伦敦',
-  Longitude: '-0.119663',
-  Latitude: '51.503410'
+    'http://hpimges.blob.core.chinacloudapi.cn/coverstory/watermark_napoleonshat_zh-cn2968205603_1920x1080.jpg',
+  imageUrl: '',
+  downLoadUrl: '',
+  provider: '© Doug Pearson Photography/plainpicture',
+  Continent: '非洲',
+  Country: '摩洛哥',
+  City: '泰夫劳特',
+  Longitude: '-8.988823',
+  Latitude: '29.730064'
 }
 ```

@@ -83,14 +83,13 @@ async function handleTransCollect(collect, month) {
   const nowDay = now.getDate()
   const nowTime = `${now.getFullYear()}${fillZero(nowMonth)}`
   const result = []
-  // 获取当月天数
-  let day = getMonthDays(month)
 
-  if (nowTime === month) day = nowDay
+  collect = collect.reverse()
+  if (collect.length > 31) collect.length = 31
 
   for (let i = 0; i < collect.length; i++) {
     const { url, copyright } = collect[i]
-    const fillDay = fillZero(day--)
+    const fillDay = fillZero(i + 1)
     const date = new Date(
       `${month.slice(0, 4)}-${month.slice(4, 6)}-${fillDay}`
     ).getTime()
@@ -105,10 +104,10 @@ async function handleTransCollect(collect, month) {
 
     const target = `${imagePath}/${name}`
     const allName = name.replace(/\.jpg/, '_1366x768.jpg')
-    const imageUrl = `https://zhanghao-zhoushan.cn/image/${allName}`
+    const imageUrl = `https://zhanghao-zhoushan.cn/image/large/${allName}`
 
     // 下载图片
-    // if (!fs.existsSync(target)) await downLoad(url, target, dateString)
+    if (!fs.existsSync(target)) await downLoad(url, target, dateString)
 
     const data = {
       dateString,
