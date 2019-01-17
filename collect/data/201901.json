@@ -119,5 +119,71 @@
     "Continent": "非洲",
     "Country": "摩洛哥",
     "City": "泰夫劳特"
+  },
+  {
+    "dateString": "20190112",
+    "date": 1547251200000,
+    "url": "http://cdn.nanxiongnandi.com/bing/Snowkiters_ZH-CN3098762517_1366x768.jpg",
+    "imageUrl": "https://zhanghao-zhoushan.cn/image/large/Snowkiters_ZH-CN3098762517_1366x768.jpg",
+    "name": "Snowkiters_ZH-CN3098762517.jpg",
+    "copyright": "“西伯利亚杯”冬季风筝冲浪比赛，俄罗斯新西伯利亚 (© Kirill Kukhmar/Getty Images)(Bing China)",
+    "Continent": "欧洲",
+    "Country": "俄罗斯",
+    "City": "新西伯利亚"
+  },
+  {
+    "dateString": "20190113",
+    "date": 1547337600000,
+    "url": "http://cdn.nanxiongnandi.com/bing/GoldenEagle_ZH-CN2823955379_1366x768.jpg",
+    "imageUrl": "https://zhanghao-zhoushan.cn/image/large/GoldenEagle_ZH-CN2823955379_1366x768.jpg",
+    "name": "GoldenEagle_ZH-CN2823955379.jpg",
+    "copyright": "阿尔泰山脉中一名用老鹰狩猎的骑手，蒙古 (© Timothy Allen/Getty Images)(Bing China)",
+    "Continent": "亚洲",
+    "Country": "",
+    "City": ""
+  },
+  {
+    "dateString": "20190114",
+    "date": 1547424000000,
+    "url": "http://cdn.nanxiongnandi.com/bing/LaDigue_ZH-CN2774523529_1366x768.jpg",
+    "imageUrl": "https://zhanghao-zhoushan.cn/image/large/LaDigue_ZH-CN2774523529_1366x768.jpg",
+    "name": "LaDigue_ZH-CN2774523529.jpg",
+    "copyright": "塞舌尔群岛之一的拉迪戈岛 (© Oleksandr Dibrova/Adobe Stock)(Bing China)",
+    "Continent": "非洲",
+    "Country": "塞舌尔",
+    "City": "拉迪戈岛"
+  },
+  {
+    "dateString": "20190115",
+    "date": 1547510400000,
+    "url": "http://cdn.nanxiongnandi.com/bing/BM1759_ZH-CN2713615652_1366x768.jpg",
+    "imageUrl": "https://zhanghao-zhoushan.cn/image/large/BM1759_ZH-CN2713615652_1366x768.jpg",
+    "name": "BM1759_ZH-CN2713615652.jpg",
+    "copyright": "大英博物馆独特的屋顶及其周边地区 (© Vladimir Zakharov/Getty Images)(Bing China)",
+    "Continent": "欧洲",
+    "Country": "英国",
+    "City": "伦敦"
+  },
+  {
+    "dateString": "20190116",
+    "date": 1547596800000,
+    "url": "http://cdn.nanxiongnandi.com/bing/AthabascaCave_ZH-CN2654280175_1366x768.jpg",
+    "imageUrl": "https://zhanghao-zhoushan.cn/image/large/AthabascaCave_ZH-CN2654280175_1366x768.jpg",
+    "name": "AthabascaCave_ZH-CN2654280175.jpg",
+    "copyright": "一名登山者攀爬阿萨巴斯卡冰川时，北极光当空闪耀，加拿大贾斯珀国家公园 (© Paul Zizka/Aurora Photos)(Bing China)",
+    "Continent": "北美洲",
+    "Country": "加拿大",
+    "City": "贾斯珀国家公园"
+  },
+  {
+    "dateString": "20190117",
+    "date": 1547683200000,
+    "url": "http://cdn.nanxiongnandi.com/bing/UKSomerset_ZH-CN2587621995_1366x768.jpg",
+    "imageUrl": "https://zhanghao-zhoushan.cn/image/large/UKSomerset_ZH-CN2587621995_1366x768.jpg",
+    "name": "UKSomerset_ZH-CN2587621995.jpg",
+    "copyright": "英格兰，萨默塞特 (© Guy Edwardes/Minden Pictures)(Bing China)",
+    "Continent": "欧洲",
+    "Country": "",
+    "City": ""
   }
 ]

@@ -8,6 +8,7 @@ build
 .vscode
 collect/images/
 details/images/
+update/images/
 # Files
 yarn.lock
 *.log
