@@ -1,28 +1,35 @@
 const fs = require('fs')
 const { promisify } = require('util')
-
+const async = require('async')
 const readdir = promisify(fs.readdir)
 const mkdir = promisify(fs.mkdir)
 
 const tinify = require('./tinify.js')
-const dirPath = './details/images'
+
+const sourceDir = './details/images'
+const targetDir = `${sourceDir}-mini`
 
 ;(async () => {
-  if (!fs.existsSync(`${dirPath}-mini`)) {
-    await mkdir(`${dirPath}-mini`).then(() =>
-      console.log(`📂  创建 ${`${dirPath}-mini`} 文件夹成功！`)
+  if (!fs.existsSync(targetDir)) {
+    await mkdir(targetDir).then(() =>
+      console.log(`📂  创建 ${targetDir} 文件夹成功！`)
     )
   }
 
-  const files = await readdir(dirPath)
+  const files = await readdir(sourceDir)
 
-  for (let i = 0; i < files.length; i++) {
-    const file = files[i]
+  // 异步并行压缩，限制 Limit 3
+  async.mapLimit(files, 3, async function(file) {
+    const sourcePath = `${sourceDir}/${file}`
+    const targetPath = `${sourceDir}-mini/${file}`
 
-    const source = tinify.fromFile(`${dirPath}/${file}`)
-    await source
-      .toFile(`${dirPath}-mini/${file}`)
-      .then(() => console.log(`🌁  压缩图片 ${file} 成功！`))
-      .catch(err => console.log(err))
-  }
+    if (!fs.existsSync(targetPath)) {
+      console.log(`💦 压缩 ${targetPath} 图片中 。。。`)
+      const source = tinify.fromFile(sourcePath)
+      await source
+        .toFile(targetPath)
+        .then(() => console.log(`🌁  压缩 ${targetPath} 图片成功！`))
+        .catch(err => console.log(err))
+    }
+  })
 })()

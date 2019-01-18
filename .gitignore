@@ -8,6 +8,7 @@ build
 .vscode
 collect/images/
 details/images/
+details/images-mini/
 update/images/
 # Files
 yarn.lock
