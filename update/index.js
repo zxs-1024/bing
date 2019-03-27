@@ -55,9 +55,10 @@ function downLoad(source, target) {
 
   // 循环数据，如果更新，写入 JSON
   images.forEach(image => {
-    const { url, copyright, startdate } = image
+    const { url, urlbase, copyright, startdate } = image
     const source = base + url
-    const name = url.split('/').slice(-1)[0]
+    const splitUrl = urlbase.split('/')
+    const name = splitUrl[splitUrl.length - 1].replace('th?id=OHR.', '')
     const target = collect + '/' + name
 
     if (!jsonData.some(item => image.startdate === item.startdate)) {
@@ -69,7 +70,7 @@ function downLoad(source, target) {
 
     // 下载图片
     if (!fs.existsSync(target)) {
-      downLoad(source, target)
+      downLoad(source, target + '.jpg')
       downLoad(source, collect + '/' + startdate + '.jpg')
     } else {
       console.log(

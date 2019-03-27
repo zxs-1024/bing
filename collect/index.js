@@ -66,13 +66,18 @@ async function puppeteerFn(page, time) {
   // 页面加载后执行回调，收集图片信息 => 在浏览器环境
   return await page.evaluate(month => {
     const images = document.querySelectorAll('#photos .panel a img')
+    const collect = {}
+
     return [...images].map(({ src: url, alt: copyright }) => {
-      return {
-        url,
-        copyright,
-        month
+      if (url && copyright && !collect[copyright]) {
+        collect[copyright] = true
+        return {
+          url,
+          copyright,
+          month
+        }
       }
-    })
+    }).filter(item => !!item)
   }, time)
 }
 
@@ -93,18 +98,20 @@ async function handleTransCollect(collect, month) {
     const date = new Date(
       `${month.slice(0, 4)}-${month.slice(4, 6)}-${fillDay}`
     ).getTime()
-    const name = url.replace(
-      /(http:\/\/cdn.nanxiongnandi.com\/bing\/|_1366x768)/g,
-      ''
-    )
+    const name = url
+      .split('/')[4]
+      .split('.jpg')[0]
+      .replace('th?id=OHR.', '')
+      .replace('_1920x1080', '')
+
     const dateString = `${month}${fillDay}`
     const { Continent, Country, City } = await axios
       .get(`${bingUrl}${dateString}`)
       .then(({ data }) => data)
 
-    const target = `${imagePath}/${name}`
-    const allName = name.replace(/\.jpg/, '_1366x768.jpg')
-    const imageUrl = `https://zhanghao-zhoushan.cn/image/large/${allName}`
+    const target = `${imagePath}/${name}.jpg`
+    const jpg = name.indexOf('_1366x768') > -1 ? '.jpg' : '_1366x768.jpg'
+    const imageUrl = `https://zhanghao-zhoushan.cn/image/large/${name}${jpg}`
 
     // 下载图片
     if (!fs.existsSync(target)) await downLoad(url, target, dateString)
