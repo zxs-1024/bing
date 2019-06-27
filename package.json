@@ -12,7 +12,7 @@
   "dependencies": {
     "async": "^2.6.1",
     "axios": "^0.18.0",
-    "dayjs": "^1.7.7",
+    "dayjs": "^1.8.14",
     "promisify": "^0.0.3",
     "puppeteer": "^1.11.0",
     "request": "^2.88.0",

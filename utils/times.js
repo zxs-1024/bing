@@ -21,4 +21,4 @@ for (let year = startYear; year <= endYear; year++) {
   }
 }
 
-module.exports = times
+module.exports = times.slice(-5).reverse()

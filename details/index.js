@@ -37,7 +37,7 @@ const imagePath = './details/images'
     )
   }
 
-  times.length = 1
+  times.length = 5
   // 遍历时间数组，爬取数据
   for (let i = 0; i < times.length; i++) {
     if (!fs.existsSync(`${collectPath}/${times[i]}.json`)) {

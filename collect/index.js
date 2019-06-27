@@ -1,34 +1,27 @@
 const fs = require('fs')
 const puppeteer = require('puppeteer')
-const axios = require('axios')
 const { promisify } = require('util')
-
-const writeFile = promisify(fs.writeFile)
 const mkdir = promisify(fs.mkdir)
+
+const times = require('../utils/times')
 const {
   fillZero,
-  getMonthDays,
   handleWriteFile,
   handleDeleteFile,
   downLoad
 } = require('../utils')
-const times = require('../utils/times')
 
-const baseUrl = 'http://bingwallpaper.anerg.com/cn/'
-const bingUrl = 'https://cn.bing.com/cnhp/coverstory?d='
-
+const wallPaperPath = 'https://bingwallpaper.anerg.com/cn/'
 const collectPath = './collect/data'
 const imagePath = './collect/images'
 
 ;(async () => {
-  // 启动浏览器
   const browser = await puppeteer.launch({
     headless: true,
     timeout: 0,
     ignoreHTTPSErrors: true
   })
 
-  // 打开页面
   const page = await browser.newPage()
 
   await handleDeleteFile(collectPath)
@@ -39,14 +32,10 @@ const imagePath = './collect/images'
     )
   }
 
-  // 遍历时间数组，爬取数据
   for (let i = 0; i < times.length; i++) {
     if (!fs.existsSync(`${collectPath}/${times[i]}.json`)) {
-      // 收集图片信息
       const evaluate = await puppeteerFn(page, times[i])
-      // 处理数据
       const collect = await handleTransCollect(evaluate, times[i])
-      // 写入 JSON 文件
       await handleWriteFile(collectPath, collect, times[i])
     }
   }
@@ -55,20 +44,19 @@ const imagePath = './collect/images'
   await browser.close()
 })()
 
-// 收集图片信息
+// use puppeteer open page
 async function puppeteerFn(page, time) {
-  // 输入地址
-  await page.goto(`${baseUrl}${time}`)
+  await page.goto(`${wallPaperPath}${time}`)
 
-  // 等待 img 渲染完毕
-  await page.waitForSelector('#photos .panel a img')
-
-  // 页面加载后执行回调，收集图片信息 => 在浏览器环境
   return await page.evaluate(month => {
-    const images = document.querySelectorAll('#photos .panel a img')
+    const images = document.querySelectorAll(
+      '#jssor_1 div div div div div div img'
+    )
+    const copyrights = document.querySelectorAll('.intro')
     const collect = {}
 
-    return [...images].map(({ src: url, alt: copyright }) => {
+    return [...images].map(({ src: url }, i) => {
+      const copyright = copyrights[i] && copyrights[i].innerHTML
       if (url && copyright && !collect[copyright]) {
         collect[copyright] = true
         return {
@@ -81,39 +69,26 @@ async function puppeteerFn(page, time) {
   }, time)
 }
 
-// 处理数据
+// trans image data
 async function handleTransCollect(collect, month) {
-  const now = new Date()
-  const nowMonth = now.getMonth() + 1
-  const nowDay = now.getDate()
-  const nowTime = `${now.getFullYear()}${fillZero(nowMonth)}`
   const result = []
 
-  collect = collect.reverse()
-  if (collect.length > 31) collect.length = 31
-
   for (let i = 0; i < collect.length; i++) {
-    const { url, copyright } = collect[i]
     const fillDay = fillZero(i + 1)
+    const dateString = `${month}${fillDay}`
     const date = new Date(
       `${month.slice(0, 4)}-${month.slice(4, 6)}-${fillDay}`
     ).getTime()
-    const name = url
-      .split('/')[4]
-      .split('.jpg')[0]
-      .replace('th?id=OHR.', '')
-      .replace('_1920x1080', '')
 
-    const dateString = `${month}${fillDay}`
-    const { Continent, Country, City } = await axios
-      .get(`${bingUrl}${dateString}`)
-      .then(({ data }) => data)
-
+    const { url, copyright } = collect[i]
+    const allName = url.split('/')[4]
+    const name = allName
+      .replace('_1920x1080.jpg', '')
+      .replace('_1366x768.jpg', '')
     const target = `${imagePath}/${name}.jpg`
-    const jpg = name.indexOf('_1366x768') > -1 ? '.jpg' : '_1366x768.jpg'
-    const imageUrl = `https://zhanghao-zhoushan.cn/image/large/${name}${jpg}`
+    const imageUrl = `https://zhanghao-zhoushan.cn/image/large/${allName}`
 
-    // 下载图片
+    // down load image
     if (!fs.existsSync(target)) await downLoad(url, target, dateString)
 
     const data = {
@@ -122,10 +97,7 @@ async function handleTransCollect(collect, month) {
       url,
       imageUrl,
       name,
-      copyright,
-      Continent,
-      Country,
-      City
+      copyright
     }
     result.push(data)
   }
