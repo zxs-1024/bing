@@ -17,8 +17,7 @@ const imagePath = './collect/images'
 
 ;(async () => {
   const browser = await puppeteer.launch({
-    headless: true,
-    timeout: 0,
+    headless: false,
     ignoreHTTPSErrors: true
   })
 
@@ -46,26 +45,28 @@ const imagePath = './collect/images'
 
 // use puppeteer open page
 async function puppeteerFn(page, time) {
-  await page.goto(`${wallPaperPath}${time}`)
+  await page.goto(`${wallPaperPath}${time}`, { timeout: 0 })
 
   return await page.evaluate(month => {
+    const copyrights = document.querySelectorAll('.intro')
     const images = document.querySelectorAll(
       '#jssor_1 div div div div div div img'
     )
-    const copyrights = document.querySelectorAll('.intro')
     const collect = {}
 
-    return [...images].map(({ src: url }, i) => {
-      const copyright = copyrights[i] && copyrights[i].innerHTML
-      if (url && copyright && !collect[copyright]) {
-        collect[copyright] = true
-        return {
-          url,
-          copyright,
-          month
+    return [...images]
+      .map(({ src: url }, i) => {
+        const copyright = copyrights[i] && copyrights[i].innerHTML
+        if (url && copyright && !collect[copyright]) {
+          collect[copyright] = true
+          return {
+            url,
+            copyright,
+            month
+          }
         }
-      }
-    }).filter(item => !!item)
+      })
+      .filter(item => !!item)
   }, time)
 }
 
@@ -82,9 +83,7 @@ async function handleTransCollect(collect, month) {
 
     const { url, copyright } = collect[i]
     const allName = url.split('/')[4]
-    const name = allName
-      .replace('_1920x1080.jpg', '')
-      .replace('_1366x768.jpg', '')
+    const name = allName.replace(/_1366x768\.jpg|_1920x1080\.jpg/g, '')
     const target = `${imagePath}/${name}.jpg`
     const imageUrl = `https://zhanghao-zhoushan.cn/image/large/${allName}`
 
